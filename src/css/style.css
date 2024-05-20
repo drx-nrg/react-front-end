@@ -1,0 +1,15 @@
+.main {
+    min-height: 100vh;
+}
+.recipe-image {
+    object-fit: cover;
+    object-position: center;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+    color: inherit;
+}
