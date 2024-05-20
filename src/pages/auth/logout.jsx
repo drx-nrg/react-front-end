@@ -43,7 +43,8 @@ export default function Logout(){
                     showConfirmButton: true,
                 }).then(result => {
                     if(result.isConfirmed){
-                        navigate('/auth/login')
+                        navigate('/auth/login');
+                        window.location.reload();
                     }
                 });
             }

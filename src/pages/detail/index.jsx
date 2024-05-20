@@ -9,13 +9,7 @@ import Swal from 'sweetalert2';
 
 export default function DetailRecipe(){
     const [recipe, setRecipe] = useState({});
-    const [starStatus, setStarStatus] = useState({
-        1: false,
-        2: false,
-        3: false,
-        4: false,
-        5: false,
-    });
+    const [starStatus, setStarStatus] = useState([false, false, false, false, false]);
     const [ratings, setRatings]= useState(0);
     const [comment, setComment] = useState("")
     const params = useParams();
@@ -26,38 +20,25 @@ export default function DetailRecipe(){
 
     useEffect(() => {
         const stars = document.querySelectorAll('#star');
-        for(const key in starStatus){
-            if(starStatus[key] && stars[key - 1].src !== EmptyStar){
-                for(let i = 0; i <= key - 1; i++){
-                    stars[i].src = FillStar
+        for(let i = 0; i < stars.length; i++){
+            stars[i].src = EmptyStar;
+        }
+        for(let i = 0; i < stars.length; i++){
+            if(starStatus[i]){
+                for(let j = 0; j <= i; j++){
+                    stars[j].src = FillStar
                 }
+                setRatings(i + 1);
             }
-            
-            if(starStatus[key] && stars[key - 1].src !== FillStar){
-                for(let j = 5; j > key - 1; j--){
-                    stars[j].src = EmptyStar
-                }
-            }
-            setRatings(key);
         }
     }, [starStatus]);
 
     function handleStars(e){
         return setStarStatus(() => {
-            let rating = {
-                1: false,
-                2: false,
-                3: false,
-                4: false,
-                5: false,
-            }
-
-            rating[e.target.dataset.number] = true
-
+            let rating = [false, false, false, false, false];
+            rating[e.target.dataset.number - 1] = true; 
             return rating;
         });
-
-
     }
 
     async function submitComment(){
